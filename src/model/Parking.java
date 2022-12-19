@@ -2,14 +2,14 @@ package model;
 
 public class Parking {
     int parkingSpot;
-    String carBrand;
+    int carBrand;
     String carNumber;
     String ownerFullName;
 
     public Parking() {
     }
 
-    public Parking(int parkingSpot, String carBrand, String carNumber, String ownerFullName) {
+    public Parking(int parkingSpot, int carBrand, String carNumber, String ownerFullName) {
         this.parkingSpot = parkingSpot;
         this.carBrand = carBrand;
         this.carNumber = carNumber;
@@ -24,11 +24,11 @@ public class Parking {
         this.parkingSpot = parkingSpot;
     }
 
-    public String getCarBrand() {
+    public int getCarBrand() {
         return carBrand;
     }
 
-    public void setCarBrand(String carBrand) {
+    public void setCarBrand(int carBrand) {
         this.carBrand = carBrand;
     }
 
