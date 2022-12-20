@@ -2,14 +2,14 @@ package model;
 
 public class Parking {
     int parkingSpot;
-    int carBrand;
+    String carBrand;
     String carNumber;
     String ownerFullName;
 
     public Parking() {
     }
 
-    public Parking(int parkingSpot, int carBrand, String carNumber, String ownerFullName) {
+    public Parking(int parkingSpot, String carBrand, String carNumber, String ownerFullName) {
         this.parkingSpot = parkingSpot;
         this.carBrand = carBrand;
         this.carNumber = carNumber;
@@ -24,11 +24,11 @@ public class Parking {
         this.parkingSpot = parkingSpot;
     }
 
-    public int getCarBrand() {
+    public String getCarBrand() {
         return carBrand;
     }
 
-    public void setCarBrand(int carBrand) {
+    public void setCarBrand(String carBrand) {
         this.carBrand = carBrand;
     }
 
@@ -50,11 +50,6 @@ public class Parking {
 
     @Override
     public String toString() {
-        return "Parking{" +
-                "parkingSpot=" + parkingSpot +
-                ", carBrand='" + carBrand + '\'' +
-                ", carNumber='" + carNumber + '\'' +
-                ", ownerFullName='" + ownerFullName + '\'' +
-                '}';
+        return "Parking spot: " + parkingSpot + " | Car brand: " + carBrand + " | Car number: " + carNumber + " | Owner: " + ownerFullName + "\n";
     }
 }
