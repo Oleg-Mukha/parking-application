@@ -1,26 +1,28 @@
 package model;
 
 public class Car {
-    String carBrand;
+    int carBrand;
     String carNumber;
-    String bodyType;
-    double engineVolume;
+    int bodyType;
+    int fuelType;
+    float engineVolume;
 
     public Car() {
     }
 
-    public Car(String carBrand, String carNumber, String bodyType, double engineVolume) {
+    public Car(int carBrand, String carNumber, int bodyType, int fuelType, float engineVolume) {
         this.carBrand = carBrand;
         this.carNumber = carNumber;
         this.bodyType = bodyType;
+        this.fuelType = fuelType;
         this.engineVolume = engineVolume;
     }
 
-    public String getCarBrand() {
+    public int getCarBrand() {
         return carBrand;
     }
 
-    public void setCarBrand(String carBrand) {
+    public void setCarBrand(int carBrand) {
         this.carBrand = carBrand;
     }
 
@@ -32,29 +34,32 @@ public class Car {
         this.carNumber = carNumber;
     }
 
-    public String getBodyType() {
+    public int getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(String bodyType) {
+    public void setBodyType(int bodyType) {
         this.bodyType = bodyType;
     }
 
-    public double getEngineVolume() {
+    public int getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(int fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public float getEngineVolume() {
         return engineVolume;
     }
 
-    public void setEngineVolume(double engineVolume) {
+    public void setEngineVolume(float engineVolume) {
         this.engineVolume = engineVolume;
     }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "carBrand='" + carBrand + '\'' +
-                ", carNumber='" + carNumber + '\'' +
-                ", bodyType='" + bodyType + '\'' +
-                ", engineVolume=" + engineVolume +
-                '}';
+        return "Brand id: " + carBrand + " | Car number: " + carNumber + " | Body type id: " + bodyType + " | Engine capacity: " + engineVolume + "\n";
     }
 }
