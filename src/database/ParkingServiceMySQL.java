@@ -7,7 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import static config.Config.*;
-import static queries.QueriesToParking.*;
+import static queries.QueriesToCarTable.ADD_CAR_TO_CAR_LIST;
+import static queries.QueriesToParkingTable.*;
 
 public class ParkingServiceMySQL implements ParkingDAO {
     private Connection getConnection() {
@@ -61,9 +62,9 @@ public class ParkingServiceMySQL implements ParkingDAO {
             while (resultSet.next()) {
                 Parking parking = new Parking();
                 parking.setParkingSpot(resultSet.getInt(PARKING_SPOT));
-                parking.setCarBrand(resultSet.getInt(CAR_ID));
+                parking.setCarBrand(resultSet.getString(BRAND));
                 parking.setCarNumber(resultSet.getString(CAR_NUMBER));
-                parking.setOwnerFullName(resultSet.getString(OWNER_ID));
+                parking.setOwnerFullName(resultSet.getString(FULL_NAME));
                 carsOnParking.add(parking);
             }
         } catch (SQLException exception) {
@@ -76,17 +77,90 @@ public class ParkingServiceMySQL implements ParkingDAO {
     }
 
     @Override
-    public String addCarOnParking() {
-        return null;
+    public ArrayList<Parking> findCarsByOwner(String owner) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<Parking> searchedCars = new ArrayList<>();
+
+        try {
+            connection = this.getConnection();
+            preparedStatement = connection.prepareStatement(FIND_CARS_BY_OWNER);
+            preparedStatement.setString(1, owner);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Parking parking = new Parking();
+                parking.setParkingSpot(resultSet.getInt(PARKING_SPOT));
+                parking.setCarBrand(resultSet.getString(BRAND));
+                parking.setCarNumber(resultSet.getString(CAR_NUMBER));
+                parking.setOwnerFullName(resultSet.getString(FULL_NAME));
+                searchedCars.add(parking);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } finally {
+            close(connection);
+            close(preparedStatement);
+        }
+        return searchedCars;
     }
 
     @Override
-    public String updateCarOnParking() {
-        return null;
+    public String addCarOnParking(int spot, int carid, int ownerid) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.getConnection();
+            preparedStatement = connection.prepareStatement(ADD_CAR_ON_PARKING, 3);
+            preparedStatement.setInt(1, spot);
+            preparedStatement.setInt(2, carid);
+            preparedStatement.setInt(3, ownerid);
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            close(connection);
+            close(preparedStatement);
+        }
+        return "Car has been successfully added on parking!";
     }
 
     @Override
-    public void removeCarFromParking() {
+    public String updateCarOnParking(int priorspot, int newspot) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_CAR_ON_PARKING, 2);
+            preparedStatement.setInt(1, priorspot);
+            preparedStatement.setInt(2, newspot);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            close(connection);
+            close(preparedStatement);
+        }
+        return "Car has been successfully updated!";
+    }
 
+    @Override
+    public String removeCarFromParking(int carid) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.getConnection();
+            preparedStatement = connection.prepareStatement(REMOVE_CAR_ON_PARKING,1);
+            preparedStatement.setInt(1, carid);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            close(connection);
+            close(preparedStatement);
+        }
+        return "Car has been successfully removed!";
     }
 }
