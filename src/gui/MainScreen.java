@@ -173,7 +173,7 @@ public class MainScreen implements ActionListener, MouseListener, KeyListener {
         }
 
         if (actionEvent.getSource() == this.removeCar) {
-            new RemoveCarFromParking();
+            new RemoveCarFromParkingScreen();
         }
 
     }
