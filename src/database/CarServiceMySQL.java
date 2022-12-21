@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static config.Config.*;
 import static queries.QueriesToCarTable.*;
-import static queries.QueriesToParkingTable.FIND_CARS_BY_OWNER;
+import static queries.QueriesToParkingTable.SHOW_PARKING;
 
 public class CarServiceMySQL implements CarDAO {
     private Connection getConnection() {
@@ -49,8 +49,37 @@ public class CarServiceMySQL implements CarDAO {
             }
         }
     }
+
     @Override
-    public String addCarToCarList(Car car) {
+    public ArrayList<Car> showCarList() {
+        Connection connection = null;
+        Statement statement = null;
+        ArrayList<Car> carList = new ArrayList<>();
+
+        try {
+            connection = this.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_ALL_CARS_FROM_LIST);
+            while (resultSet.next()) {
+                Car car = new Car();
+                car.setCarBrand(resultSet.getInt(CAR_BRAND));
+                car.setCarNumber(resultSet.getString(CAR_NUMBER));
+                car.setBodyType(resultSet.getInt(BODY_TYPE));
+                car.setFuelType(resultSet.getInt(FUEL_TYPE));
+                car.setEngineVolume(resultSet.getFloat(ENGINE_VOLUME));
+                carList.add(car);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } finally {
+            close(connection);
+            close(statement);
+        }
+        return carList;
+    }
+
+    @Override
+    public void addCarToCarList(Car car) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -61,7 +90,7 @@ public class CarServiceMySQL implements CarDAO {
             preparedStatement.setInt(3, car.getBodyType());
             preparedStatement.setInt(4, car.getFuelType());
             preparedStatement.setFloat(5, car.getEngineVolume());
-            preparedStatement.executeUpdate();
+            preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -69,7 +98,6 @@ public class CarServiceMySQL implements CarDAO {
             close(connection);
             close((Statement) preparedStatement);
         }
-        return "Car has been successfully added to car list!";
     }
 
     @Override
