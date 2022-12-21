@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import static config.Config.*;
-import static queries.QueriesToCarTable.ADD_CAR_TO_CAR_LIST;
 import static queries.QueriesToParkingTable.*;
 
 public class ParkingServiceMySQL implements ParkingDAO {
@@ -105,7 +104,7 @@ public class ParkingServiceMySQL implements ParkingDAO {
     }
 
     @Override
-    public String addCarOnParking(int spot, int carid, int ownerid) {
+    public void addCarOnParking(int spot, int carid, int ownerid) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -122,7 +121,6 @@ public class ParkingServiceMySQL implements ParkingDAO {
             close(connection);
             close(preparedStatement);
         }
-        return "Car has been successfully added on parking!";
     }
 
     @Override
