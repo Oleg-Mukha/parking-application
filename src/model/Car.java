@@ -60,6 +60,6 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Brand id: " + carBrand + " | Car number: " + carNumber + " | Body type id: " + bodyType + " | Engine capacity: " + engineVolume + "\n";
+        return "Brand id: " + carBrand + " | Car number: " + carNumber + " | Body type id: " + bodyType + " | Fuel id: " + fuelType + " | Engine capacity: " + engineVolume + "\n";
     }
 }
