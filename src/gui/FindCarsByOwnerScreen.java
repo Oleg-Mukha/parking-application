@@ -41,7 +41,7 @@ public class FindCarsByOwnerScreen implements ActionListener {
         this.mainPane.add(this.input);
         this.mainPane.add(this.labelMessage);
         this.frame.getContentPane().setBackground(Color.decode("#251f31"));
-        this.frame.setSize(750, 500);
+        this.frame.setSize(800, 500);
         this.frame.setResizable(false);
         this.frame.setIconImage(this.frameIcon.getImage());
         this.frame.setVisible(true);
