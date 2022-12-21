@@ -37,12 +37,12 @@ public class SelectionCarByRegionScreen implements ActionListener {
         this.labelMessage.setForeground(Color.decode("#a58bb5"));
         this.labelMessage.setBackground(Color.decode("#251f31"));
         this.labelMessage.setOpaque(true);
-        this.mainPane.setBounds(0, 0, 700, 700);
+        this.mainPane.setBounds(0, 0, 800, 700);
         this.mainPane.add(this.buttonSubmit);
         this.mainPane.add(this.input);
         this.mainPane.add(this.labelMessage);
         this.frame.getContentPane().setBackground(Color.decode("#251f31"));
-        this.frame.setSize(700, 700);
+        this.frame.setSize(800, 700);
         this.frame.setResizable(false);
         this.frame.setIconImage(this.frameIcon.getImage());
         this.frame.setVisible(true);
@@ -55,12 +55,12 @@ public class SelectionCarByRegionScreen implements ActionListener {
             StringBuilder stringBuilder = new StringBuilder();
 
             for (Car car : list) {
-                stringBuilder.append(car).append("\n");
+                stringBuilder.append(car);
             }
 
             JTextArea searchResult = new JTextArea(stringBuilder.toString());
             searchResult.setFont(new Font("Century Gothic", 0, 16));
-            searchResult.setBounds(20, 200, 650, 550);
+            searchResult.setBounds(20, 200, 800, 550);
             searchResult.setForeground(Color.decode("#a58bb5"));
             searchResult.setBackground(Color.decode("#251f31"));
             searchResult.setOpaque(true);
